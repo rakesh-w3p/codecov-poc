@@ -5,7 +5,7 @@ describe('Express App', () => {
   describe('GET /', () => {
     it('should return hello world message', async () => {
       const response = await request(app).get('/')
-      
+
       expect(response.status).toBe(200)
       expect(response.body).toEqual({ message: 'Hello World!' })
     })
@@ -14,7 +14,7 @@ describe('Express App', () => {
   describe('GET /health', () => {
     it('should return health check with status OK', async () => {
       const response = await request(app).get('/health')
-      
+
       expect(response.status).toBe(200)
       expect(response.body.status).toBe('OK')
       expect(response.body).toHaveProperty('timestamp')
@@ -24,7 +24,7 @@ describe('Express App', () => {
 
     it('should return valid timestamp format', async () => {
       const response = await request(app).get('/health')
-      
+
       expect(response.status).toBe(200)
       const timestamp = new Date(response.body.timestamp)
       expect(timestamp).toBeInstanceOf(Date)
@@ -42,7 +42,7 @@ describe('Express App', () => {
       const response = await request(app)
         .post('/users')
         .send(userData)
-      
+
       expect(response.status).toBe(201)
       expect(response.body).toHaveProperty('id')
       expect(response.body.name).toBe('John Doe')
@@ -59,7 +59,7 @@ describe('Express App', () => {
       const response = await request(app)
         .post('/users')
         .send(userData)
-      
+
       expect(response.status).toBe(201)
       expect(response.body.name).toBe('John Doe')
     })
@@ -73,7 +73,7 @@ describe('Express App', () => {
       const response = await request(app)
         .post('/users')
         .send(userData)
-      
+
       expect(response.status).toBe(201)
       expect(response.body.email).toBe('john.doe@example.com')
     })
@@ -86,7 +86,7 @@ describe('Express App', () => {
       const response = await request(app)
         .post('/users')
         .send(userData)
-      
+
       expect(response.status).toBe(400)
       expect(response.body.error).toBe('Name and email are required')
     })
@@ -99,7 +99,7 @@ describe('Express App', () => {
       const response = await request(app)
         .post('/users')
         .send(userData)
-      
+
       expect(response.status).toBe(400)
       expect(response.body.error).toBe('Name and email are required')
     })
@@ -113,7 +113,7 @@ describe('Express App', () => {
       const response = await request(app)
         .post('/users')
         .send(userData)
-      
+
       expect(response.status).toBe(400)
       expect(response.body.error).toBe('Name must be a non-empty string')
     })
@@ -127,7 +127,7 @@ describe('Express App', () => {
       const response = await request(app)
         .post('/users')
         .send(userData)
-      
+
       expect(response.status).toBe(400)
       expect(response.body.error).toBe('Name must be a non-empty string')
     })
@@ -141,7 +141,7 @@ describe('Express App', () => {
       const response = await request(app)
         .post('/users')
         .send(userData)
-      
+
       expect(response.status).toBe(400)
       expect(response.body.error).toBe('Name must be a non-empty string')
     })
@@ -155,7 +155,7 @@ describe('Express App', () => {
       const response = await request(app)
         .post('/users')
         .send(userData)
-      
+
       expect(response.status).toBe(400)
       expect(response.body.error).toBe('Invalid email format')
     })
@@ -169,7 +169,7 @@ describe('Express App', () => {
       const response = await request(app)
         .post('/users')
         .send(userData)
-      
+
       expect(response.status).toBe(400)
       expect(response.body.error).toBe('Invalid email format')
     })
@@ -183,7 +183,7 @@ describe('Express App', () => {
       const response = await request(app)
         .post('/users')
         .send(userData)
-      
+
       expect(response.status).toBe(400)
       expect(response.body.error).toBe('Invalid email format')
     })
@@ -193,7 +193,7 @@ describe('Express App', () => {
     describe('Addition', () => {
       it('should add two positive numbers', async () => {
         const response = await request(app).get('/calculate/add/5/3')
-        
+
         expect(response.status).toBe(200)
         expect(response.body).toEqual({
           operation: 'add',
@@ -205,14 +205,14 @@ describe('Express App', () => {
 
       it('should add negative numbers', async () => {
         const response = await request(app).get('/calculate/add/-5/-3')
-        
+
         expect(response.status).toBe(200)
         expect(response.body.result).toBe(-8)
       })
 
       it('should add decimal numbers', async () => {
         const response = await request(app).get('/calculate/add/1.5/2.3')
-        
+
         expect(response.status).toBe(200)
         expect(response.body.result).toBeCloseTo(3.8)
       })
@@ -221,14 +221,14 @@ describe('Express App', () => {
     describe('Subtraction', () => {
       it('should subtract two numbers', async () => {
         const response = await request(app).get('/calculate/subtract/10/3')
-        
+
         expect(response.status).toBe(200)
         expect(response.body.result).toBe(7)
       })
 
       it('should handle negative results', async () => {
         const response = await request(app).get('/calculate/subtract/3/10')
-        
+
         expect(response.status).toBe(200)
         expect(response.body.result).toBe(-7)
       })
@@ -237,21 +237,21 @@ describe('Express App', () => {
     describe('Multiplication', () => {
       it('should multiply two numbers', async () => {
         const response = await request(app).get('/calculate/multiply/4/5')
-        
+
         expect(response.status).toBe(200)
         expect(response.body.result).toBe(20)
       })
 
       it('should handle multiplication by zero', async () => {
         const response = await request(app).get('/calculate/multiply/5/0')
-        
+
         expect(response.status).toBe(200)
         expect(response.body.result).toBe(0)
       })
 
       it('should handle negative multiplication', async () => {
         const response = await request(app).get('/calculate/multiply/-4/5')
-        
+
         expect(response.status).toBe(200)
         expect(response.body.result).toBe(-20)
       })
@@ -260,21 +260,21 @@ describe('Express App', () => {
     describe('Division', () => {
       it('should divide two numbers', async () => {
         const response = await request(app).get('/calculate/divide/10/2')
-        
+
         expect(response.status).toBe(200)
         expect(response.body.result).toBe(5)
       })
 
       it('should handle decimal division', async () => {
         const response = await request(app).get('/calculate/divide/7/3')
-        
+
         expect(response.status).toBe(200)
         expect(response.body.result).toBeCloseTo(2.333333)
       })
 
       it('should return 400 for division by zero', async () => {
         const response = await request(app).get('/calculate/divide/5/0')
-        
+
         expect(response.status).toBe(400)
         expect(response.body.error).toBe('Division by zero is not allowed')
       })
@@ -283,21 +283,21 @@ describe('Express App', () => {
     describe('Power', () => {
       it('should calculate power of two numbers', async () => {
         const response = await request(app).get('/calculate/power/2/3')
-        
+
         expect(response.status).toBe(200)
         expect(response.body.result).toBe(8)
       })
 
       it('should handle power of zero', async () => {
         const response = await request(app).get('/calculate/power/5/0')
-        
+
         expect(response.status).toBe(200)
         expect(response.body.result).toBe(1)
       })
 
       it('should handle negative exponents', async () => {
         const response = await request(app).get('/calculate/power/2/-2')
-        
+
         expect(response.status).toBe(200)
         expect(response.body.result).toBe(0.25)
       })
@@ -306,28 +306,28 @@ describe('Express App', () => {
     describe('Error Cases', () => {
       it('should return 400 for invalid operation', async () => {
         const response = await request(app).get('/calculate/invalid/5/3')
-        
+
         expect(response.status).toBe(400)
         expect(response.body.error).toBe('Invalid operation. Supported operations: add, subtract, multiply, divide, power')
       })
 
       it('should return 400 for non-numeric first parameter', async () => {
         const response = await request(app).get('/calculate/add/abc/3')
-        
+
         expect(response.status).toBe(400)
         expect(response.body.error).toBe('Invalid numbers provided')
       })
 
       it('should return 400 for non-numeric second parameter', async () => {
         const response = await request(app).get('/calculate/add/5/xyz')
-        
+
         expect(response.status).toBe(400)
         expect(response.body.error).toBe('Invalid numbers provided')
       })
 
       it('should return 400 for both parameters being non-numeric', async () => {
         const response = await request(app).get('/calculate/add/abc/xyz')
-        
+
         expect(response.status).toBe(400)
         expect(response.body.error).toBe('Invalid numbers provided')
       })
@@ -337,14 +337,14 @@ describe('Express App', () => {
   describe('404 Not Found', () => {
     it('should return 404 for non-existent routes', async () => {
       const response = await request(app).get('/non-existent-route')
-      
+
       expect(response.status).toBe(404)
       expect(response.body.error).toBe('Not found')
     })
 
     it('should return 404 for invalid HTTP methods', async () => {
       const response = await request(app).delete('/')
-      
+
       expect(response.status).toBe(404)
       expect(response.body.error).toBe('Not found')
     })

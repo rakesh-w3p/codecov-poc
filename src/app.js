@@ -8,8 +8,8 @@ app.get('/', (req, res) => {
 })
 
 app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
+  res.json({
+    status: 'OK',
     timestamp: new Date().toISOString(),
     uptime: process.uptime()
   })
@@ -18,22 +18,22 @@ app.get('/health', (req, res) => {
 app.post('/users', (req, res) => {
   const { name, email } = req.body
 
-  if (!name || !email) {
-    return res.status(400).json({ 
-      error: 'Name and email are required' 
+  if (name === undefined || email === undefined) {
+    return res.status(400).json({
+      error: 'Name and email are required'
     })
   }
 
   if (typeof name !== 'string' || name.trim().length === 0) {
-    return res.status(400).json({ 
-      error: 'Name must be a non-empty string' 
+    return res.status(400).json({
+      error: 'Name must be a non-empty string'
     })
   }
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
   if (!emailRegex.test(email)) {
-    return res.status(400).json({ 
-      error: 'Invalid email format' 
+    return res.status(400).json({
+      error: 'Invalid email format'
     })
   }
 
@@ -54,8 +54,8 @@ app.get('/calculate/:operation/:a/:b', (req, res) => {
   const numB = parseFloat(b)
 
   if (isNaN(numA) || isNaN(numB)) {
-    return res.status(400).json({ 
-      error: 'Invalid numbers provided' 
+    return res.status(400).json({
+      error: 'Invalid numbers provided'
     })
   }
 
@@ -72,8 +72,8 @@ app.get('/calculate/:operation/:a/:b', (req, res) => {
       break
     case 'divide':
       if (numB === 0) {
-        return res.status(400).json({ 
-          error: 'Division by zero is not allowed' 
+        return res.status(400).json({
+          error: 'Division by zero is not allowed'
         })
       }
       result = numA / numB
@@ -82,8 +82,8 @@ app.get('/calculate/:operation/:a/:b', (req, res) => {
       result = Math.pow(numA, numB)
       break
     default:
-      return res.status(400).json({ 
-        error: 'Invalid operation. Supported operations: add, subtract, multiply, divide, power' 
+      return res.status(400).json({
+        error: 'Invalid operation. Supported operations: add, subtract, multiply, divide, power'
       })
   }
 
