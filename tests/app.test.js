@@ -11,6 +11,19 @@ describe('Express App', () => {
     })
   })
 
+  describe('GET /version', () => {
+    it('should return API version information', async () => {
+      const response = await request(app).get('/version')
+
+      expect(response.status).toBe(200)
+      expect(response.body).toEqual({
+        version: '1.0.0',
+        name: 'codecov-poc',
+        description: 'Node.js Express application for Codecov POC'
+      })
+    })
+  })
+
   describe('GET /health', () => {
     it('should return health check with status OK', async () => {
       const response = await request(app).get('/health')
